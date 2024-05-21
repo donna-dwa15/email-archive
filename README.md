@@ -7,7 +7,8 @@ The Email Archive is a Laravel web application that allows the uploading, saving
 
 ## Local Setup
 Run the following commands to get this project up and running locally:
-```git clone https://github.com/donna-dwa15/email-archive.git email-archive
+```
+git clone https://github.com/donna-dwa15/email-archive.git email-archive
 cd email-archive
 composer install
 cp .env.example .env
