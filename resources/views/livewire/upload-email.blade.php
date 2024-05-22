@@ -1,7 +1,6 @@
 <div>
 <form wire:submit.prevent="save">
     @csrf
-    <x-slot:header>Email Uploader</x-slot:header>
     <div wire:loading.delay wire:target="save" class="bg-orange-100 font-bold px-5 py-1 rounded-lg">Uploading...</div>
     <div>
         @if (session()->has('message'))
