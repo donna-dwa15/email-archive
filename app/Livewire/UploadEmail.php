@@ -7,6 +7,8 @@ use App\Jobs\ProcessEmail;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
+use Illuminate\Validation\ValidationException;
+
 class UploadEmail extends Component
 {
     use WithFileUploads;
@@ -39,11 +41,20 @@ class UploadEmail extends Component
                 
         $attributes["tags"] = $this->tag;
         
-        ProcessEmail::dispatch($attributes['file']->temporaryUrl(), $attributes["tags"]);
+        
+        try {
+            
+            ProcessEmail::dispatch($attributes['file']->temporaryUrl(), $attributes["tags"]);
+            
+            session()->flash('message', 'File uploaded successfully.');
+
+        } catch (ValidationException $e) {
+
+            session()->flash('error', 'Upload failed: ' . $e->getMessage());
+            
+        }
         
         $this->reset();
-        
-        session()->flash('message', 'File uploaded successfully.');
 
     }
     
