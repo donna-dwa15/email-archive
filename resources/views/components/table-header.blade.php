@@ -1,0 +1,1 @@
+<th class="py-5 px-3">{{ $slot }}</th>

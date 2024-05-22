@@ -1,0 +1,1 @@
+<tr class="bg-white px-2 py-2">{{ $slot }}</tr>
