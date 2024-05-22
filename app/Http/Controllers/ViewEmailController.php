@@ -11,6 +11,6 @@ class ViewEmailController extends Controller
     public function __invoke(Email $email)
     {
         //jobs for this tag
-        return view('emails.view-email', ['email' => $email]);
+        return view('emails.view-email', ['email' => $email, 'header' => 'Email Viewer']);
     }
 }

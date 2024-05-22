@@ -38,6 +38,9 @@
     <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
         <div class="border-2 px-10 py-10 rounded-lg">
             @yield('content')
+            @if( isset( $slot ) )
+                {{ $slot }}
+            @endif
         </div>
     </div>
   </main>
