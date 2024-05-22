@@ -11,6 +11,8 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Arr;
 
+use Illuminate\Validation\ValidationException;
+
 use ZBateson\MailMimeParser\Message;
 
 class ProcessEmail implements ShouldQueue
@@ -42,14 +44,21 @@ class ProcessEmail implements ShouldQueue
         logger('Processing file\n: ' . $this->file_url);
         $email_details = $this->parseEmail();
         
-        $email = Email::create(Arr::except( $email_details, 'tags'));
+        if( !isset( $email_details['has_errors'] ) ){
+                 
+            $email = Email::create(Arr::except( $email_details, 'tags'));
         
-        if( $email_details['tags'] ?? false ){
-            foreach( explode(',', $email_details['tags']) as $tag){
+            if( $email_details['tags'] ?? false ){
+                foreach( explode(',', $email_details['tags']) as $tag){
 
-                $email->tag($tag);
+                    $email->tag($tag);
                 
+                }
             }
+        } else {
+            
+            throw ValidationException::withMessages(['file' => 'Invalid .eml formatted file']);
+
         }
         
     }
@@ -60,10 +69,16 @@ class ProcessEmail implements ShouldQueue
      *  
      */
     private function parseEmail(): Array 
-    {
-        
+    {        
         // get the contents of the .eml file
         $content = file_get_contents($this->file_url);
+        
+        // no content to parse, return an error
+        if( empty( $content ) ) {
+
+            return [ 'has_errors' => true ];
+
+        }
         
         /*
          *  Create a Message object from the content
@@ -76,9 +91,24 @@ class ProcessEmail implements ShouldQueue
         $to = $this->message->getHeader('To');
         $from = $this->message->getHeader('From');
         $subject = $this->message->getSubject();
+
+        // Something is wrong with the file if we can't find these headers
+        if( !isset( $to ) || !isset( $from ) ){
+         
+            return [ 'has_errors' => true ];
+            
+        }
+        
+        $recipient = "";
+        $delimiter = "";
         
         $sender = $from->getEmail();
-        $recipient = $to->getEmail();
+        
+        foreach( $to->getAddresses() as $address ){
+            
+            $recipient .= $delimiter . $address->getEmail();
+            $delimiter = ", ";
+        }
         
         // Get the email body content
         $text = $this->message->getTextContent();
@@ -86,13 +116,6 @@ class ProcessEmail implements ShouldQueue
         
         // Retrieve file attachment information, if any 
         $attachments = $this->getAttachments();
-        
-        /*foreach ($to->getAllAddresses() as $addr) {
-            $toName = $to->getPersonName();
-            $toEmail = $to->getEmail();
-            
-            $recipient_list .= $toName . " <{$toEmail}>";
-        }*/
         
         return [ 'recipient' => $recipient,
                 'sender' => $sender,

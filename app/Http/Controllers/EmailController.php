@@ -15,7 +15,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-//use Illuminate\Support\Facades\Response;
+use Illuminate\Validation\ValidationException;
 
 class EmailController extends Controller
 {
@@ -94,8 +94,21 @@ class EmailController extends Controller
             // Store the uploaded file and get the path
             $file_path = Storage::path($request->file->store('uploads'));
   
-            // Pass the file + tags to be processed and saved to the DB
-            ProcessEmail::dispatch($file_path, $attributes["tags"]);
+            try {
+                
+                // Pass the file + tags to be processed and saved to the DB
+                ProcessEmail::dispatch($file_path, $attributes["tags"]);
+            
+                
+            } catch (ValidationException $e) {
+                
+                // There was an error parsing out the file.
+                // Set response details for the failed request.
+                $response["success"] = false;
+                $response["message"] = $e->getMessage();
+                $response["status"] = 400;
+                
+            }
             
         }
         
