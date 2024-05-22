@@ -1,6 +1,6 @@
 @props(['emails'])
 
-<div class="flex-col mt-1 mb-1">
+<div class="flex flex-col mt-1 mb-1">
     <table class="divide-y divide-gray-200">
         <thead>
             <x-table-row>
@@ -27,5 +27,5 @@
         @endforeach
         </tbody>
     </table>
-    <div>{{ $emails->links() }}</div>
+    <div class='mt-3'>{{ $emails->links() }}</div>
 </div>
