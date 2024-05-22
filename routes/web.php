@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ViewEmailController;
-use App\Http\Controllers\EmailController;
 
+use App\Livewire\Dashboard;
 use App\Livewire\UploadEmail;
 use App\Livewire\EmailTable;
 
@@ -19,10 +19,8 @@ use App\Livewire\EmailTable;
 |
 */
 
-Route::view('/', 'index')->name('home');
-Route::view('/index', 'index');
-Route::view('/upload', 'index', ['header_text' => "Email Uploader", 'content_component' => "upload"]);
+Route::get('/', Dashboard::class)->name('home');
 
+Route::get('/upload', UploadEmail::class);
 Route::get('/emails', EmailTable::class);
-//Route::get('/emails', EmailController::class);
 Route::get('/emails/{email:id}', ViewEmailController::class);
