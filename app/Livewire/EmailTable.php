@@ -16,7 +16,7 @@ class EmailTable extends Component
 
         return view('livewire.email-table', [
             'emails' => Email::with(['tags'])->paginate(10) ,          
-        ])->extends('layouts.layout', ['header' => 'Archived Emails']);
+        ])->extends('components.layout', ['header' => 'Archived Emails']);
         
     }
 }

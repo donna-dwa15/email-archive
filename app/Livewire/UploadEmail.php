@@ -49,6 +49,6 @@ class UploadEmail extends Component
     
     public function render()
     {
-        return view('livewire.upload-email');
+        return view('livewire.upload-email')->extends('components.layout', ['header' => 'Email Uploader']);
     }
 }
