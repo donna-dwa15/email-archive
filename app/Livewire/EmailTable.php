@@ -13,10 +13,10 @@ class EmailTable extends Component
     
     public function render()
     {
-                
+
         return view('livewire.email-table', [
-            'emails' => $this->readyToLoad ? Email::latest()->with(['tags'])->get() : [],          
-        ])->layout('\App\View\Components\Layout');
+            'emails' => Email::with(['tags'])->paginate(10) ,          
+        ])->extends('layouts.layout', ['header' => 'Archived Emails']);
         
     }
 }
