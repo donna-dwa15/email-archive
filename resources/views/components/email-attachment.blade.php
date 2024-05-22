@@ -7,10 +7,6 @@
         </svg>
         <div class="ml-4 flex min-w-0 flex-1 gap-2">
             <span class="truncate font-medium">{{ $name }}</span>
-            <span class="flex-shrink-0 text-gray-400">{{ $size }}</span>
         </div>
-    </div>
-    <div class="ml-4 flex-shrink-0">
-        <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
     </div>
 </li>
