@@ -9,7 +9,7 @@ Users also have the option of uploading via an API POST request to the api/uploa
 ## Local Setup
 
 Please note:  Herd was used for local development of this project.
-
+<br/>
 Run the following commands to get this project up and running locally:
 ```
 git clone https://github.com/donna-dwa15/email-archive.git email-archive
@@ -19,12 +19,22 @@ cp .env.example .env
 php artisan key:generate
 php artisan migrate
 npm install
+```
+<br/>
+Modify the .env file for APP_URL to:<br/>
+http://email-archive.test
+<br/>
+Then run:
+```
 npm run dev
 ```
+<br/>
+Now you should be able to access the app through your browser by going to the APP_URL.
+
 
 ## POST API Instructions
 
-With the email-archive project running, you can POST an upload request to the following endpoint:
+With the email-archive project running, you can POST an upload request to the following endpoint:<br/>
 http://email-archive.test/api/upload
 
 POST data:
@@ -43,10 +53,10 @@ If using Postman, this can be done under the "Body" tab:
 
 Various TailwindUI templates were used and modified for this project.
 
-Header Icon used provided by:
+Header Icon used provided by:<br/>
 <a href="https://www.flaticon.com/free-icons/magnifier" title="magnifier icons">Magnifier icons created by graphicmall - Flaticon</a>
 
 3rd Party Packages used:
-vite.js
-blade-ui-kit/blade-zondicons
-zbateson/mail-mime-parser
+- vite.js
+- blade-ui-kit/blade-zondicons
+- zbateson/mail-mime-parser
