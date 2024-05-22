@@ -23,5 +23,6 @@ Route::view('/', 'index')->name('home');
 Route::view('/index', 'index');
 Route::view('/upload', 'index', ['header_text' => "Email Uploader", 'content_component' => "upload"]);
 
-Route::get('/emails', EmailController::class);
+Route::get('/emails', EmailTable::class);
+//Route::get('/emails', EmailController::class);
 Route::get('/emails/{email:id}', ViewEmailController::class);
