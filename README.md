@@ -9,7 +9,7 @@ Users also have the option of uploading via an API POST request to the api/uploa
 ## Local Setup
 
 Please note:  Herd was used for local development of this project.
-<br/>
+
 Run the following commands to get this project up and running locally:
 ```
 git clone https://github.com/donna-dwa15/email-archive.git email-archive
@@ -20,15 +20,22 @@ php artisan key:generate
 php artisan migrate
 npm install
 ```
-<br/>
-Modify the .env file for APP_URL to:<br/>
-http://email-archive.test
-<br/>
-Then run:
+
+
+Modify the .env file for APP_URL to:
+> http://email-archive.test
+
+
+Once updated, run:
 ```
 npm run dev
 ```
-<br/>
+
+To make sure uploads are processed, the queue worker will need to be started:
+```
+php artisan queue:work
+```
+
 Now you should be able to access the app through your browser by going to the APP_URL.
 
 
