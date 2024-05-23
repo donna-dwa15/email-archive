@@ -1,7 +1,7 @@
 @props(['emails'])
 
 <div class="flex flex-col mt-1 mb-1">
-    <div class="mb-3">
+    <div class="w-1/3 mb-2">
         <form wire:submit="search">
             <x-forms.input label="Search By Tag" name="search_text" type="text" wire:model="searchText" placeholder="phishing" />
         </form>
