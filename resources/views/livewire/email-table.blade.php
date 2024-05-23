@@ -28,7 +28,12 @@
                             <x-tag :$tag size="small"/>
                         @endforeach
                     </x-table-cell>
-                    <x-table-cell><a href="/emails/{{ $email->id }}" target="_blank">View{{ svg('zondicon-view-show') }}</a></x-table-cell>
+                    <x-table-cell>
+                        <a href="/emails/{{ $email->id }}" target="_blank">
+                            View 
+                            @svg('zondicon-view-show', 'w-7 h-7')
+                        </a>
+                    </x-table-cell>
                 </x-table-row>
             @endforeach
         @else
