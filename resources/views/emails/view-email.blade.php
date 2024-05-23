@@ -11,7 +11,7 @@
                             <x-email-detail label="Subject">{{ $email->subject }}</x-email-detail>
                             <x-email-detail label="Tags">
                                 @foreach( $email->tags as $tag )
-                                    <x-tag :tag='$tag' />
+                                    <x-tag :tag="$tag" />
                                 @endforeach
                             </x-email-detail>
                             <x-email-detail label="Attachments">
