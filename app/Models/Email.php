@@ -22,12 +22,7 @@ class Email extends Model
         'text_body',
         'attachments'
     ];
-    
-    public function searchTag()
-    {
         
-    }
-    
     public function tag(string $name): void
     {   
         $tag = Tag::firstOrCreate(['name' => trim($name)]);
