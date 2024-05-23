@@ -2,11 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\ViewEmailController;
-
 use App\Livewire\Dashboard;
 use App\Livewire\UploadEmail;
 use App\Livewire\EmailTable;
+use App\Livewire\ViewEmail;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +22,4 @@ Route::get('/', Dashboard::class)->name('home');
 
 Route::get('/upload', UploadEmail::class);
 Route::get('/emails', EmailTable::class);
-Route::get('/emails/{email:id}', ViewEmailController::class);
+Route::get('/emails/{id}', ViewEmail::class);
