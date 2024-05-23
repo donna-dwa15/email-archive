@@ -19,10 +19,6 @@ cp .env.example .env
 php artisan key:generate
 php artisan migrate
 npm install
-```
-
-Once updated, run:
-```
 npm run dev
 ```
 
