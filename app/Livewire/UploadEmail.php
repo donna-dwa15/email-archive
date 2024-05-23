@@ -13,8 +13,6 @@ class UploadEmail extends Component
 {
     use WithFileUploads;
         
-    #[Validate('required', message: 'Please provide a .eml file for upload')]
-    #[Validate('mimes:eml)', message: 'Only .eml files are supported')] 
     public $file;
     public $tag;
     
@@ -52,9 +50,11 @@ class UploadEmail extends Component
 
             session()->flash('error', 'Upload failed: ' . $e->getMessage());
             
+        } finally {
+            
+            $this->reset();
+            
         }
-        
-        $this->reset();
 
     }
     
