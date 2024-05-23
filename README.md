@@ -31,11 +31,6 @@ Once updated, run:
 npm run dev
 ```
 
-To make sure uploads are processed, the queue worker will need to be started:
-```
-php artisan queue:work
-```
-
 Now you should be able to access the app through your browser by going to the APP_URL.
 
 
