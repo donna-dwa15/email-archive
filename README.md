@@ -21,17 +21,13 @@ php artisan migrate
 npm install
 ```
 
-
-Modify the .env file for APP_URL to:
-> http://email-archive.test
-
-
 Once updated, run:
 ```
 npm run dev
 ```
 
-Now you should be able to access the app through your browser by going to the APP_URL.
+Now you should be able to access the app through your browser by going to:
+http://email-archive.test
 
 
 ## POST API Instructions
