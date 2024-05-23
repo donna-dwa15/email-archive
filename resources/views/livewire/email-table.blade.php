@@ -1,6 +1,11 @@
 @props(['emails'])
 
 <div class="flex flex-col mt-1 mb-1">
+    <div class="mb-3">
+        <form wire:submit="search">
+            <x-forms.input label="Search By Tag" name="search_text" type="text" wire:model="searchText" placeholder="phishing" />
+        </form>
+    </div>
     <table class="divide-y divide-gray-200">
         <thead>
             <x-table-row>
@@ -11,21 +16,27 @@
                 <x-table-header></x-table-header>
             </x-table-row>
         </thead>
-        <tbody class="divide-y divide-gray-200 text-xs">            
-        @foreach( $emails as $email )
+        <tbody class="divide-y divide-gray-200 text-xs">
+        @if ( count($emails) > 0 )
+            @foreach( $emails as $email )
+                <x-table-row>
+                    <x-table-cell>{{ $email->sender }}</x-table-cell>
+                    <x-table-cell>{{ $email->recipient }}</x-table-cell>
+                    <x-table-cell>{{ $email->subject }}</x-table-cell>
+                    <x-table-cell>
+                        @foreach ($email->tags as $tag)
+                            <x-tag :$tag size="small"/>
+                        @endforeach
+                    </x-table-cell>
+                    <x-table-cell><a href="/emails/{{ $email->id }}" target="_blank">View{{ svg('zondicon-view-show') }}</a></x-table-cell>
+                </x-table-row>
+            @endforeach
+        @else
             <x-table-row>
-                <x-table-cell>{{ $email->sender }}</x-table-cell>
-                <x-table-cell>{{ $email->recipient }}</x-table-cell>
-                <x-table-cell>{{ $email->subject }}</x-table-cell>
-                <x-table-cell>
-                    @foreach ($email->tags as $tag)
-                        <x-tag :$tag size="small"/>
-                    @endforeach
-                </x-table-cell>
-                <x-table-cell><a href="/emails/{{ $email->id }}" target="_blank">View{{ svg('zondicon-view-show') }}</a></x-table-cell>
+                <x-table-cell colspan="6" class="text-sm font-bold">0 emails found.</x-table-cell>
             </x-table-row>
-        @endforeach
+        @endif    
         </tbody>
     </table>
-    <div class='mt-3'>{{ $emails->links() }}</div>
+    <div class="mt-3">{{ $emails->links() }}</div>
 </div>
